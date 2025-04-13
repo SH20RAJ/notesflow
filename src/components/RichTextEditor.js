@@ -7,7 +7,7 @@ import Link from '@tiptap/extension-link';
 import Image from '@tiptap/extension-image';
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import { common, createLowlight } from 'lowlight';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 
 const lowlight = createLowlight(common);
 
@@ -242,8 +242,6 @@ const MenuBar = ({ editor, darkMode }) => {
 };
 
 export default function RichTextEditor({ content, onChange, placeholder, darkMode }) {
-  const [isMarkdownMode, setIsMarkdownMode] = useState(false);
-  const [markdownContent, setMarkdownContent] = useState('');
 
   const editor = useEditor({
     extensions: [
@@ -270,16 +268,7 @@ export default function RichTextEditor({ content, onChange, placeholder, darkMod
     ],
     content: content || '',
     onUpdate: ({ editor }) => {
-      const html = editor.getHTML();
-      onChange(html);
-
-      // When in rich text mode and content changes, update markdown content
-      if (!isMarkdownMode) {
-        // This is a simple conversion - in a real app you might want a more sophisticated HTML to Markdown converter
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = html;
-        setMarkdownContent(tempDiv.textContent || '');
-      }
+      onChange(editor.getHTML());
     },
     editorProps: {
       attributes: {
@@ -290,59 +279,21 @@ export default function RichTextEditor({ content, onChange, placeholder, darkMod
 
   // Update content when it changes externally
   useEffect(() => {
-    if (editor && content !== editor.getHTML() && !isMarkdownMode) {
+    if (editor && content !== editor.getHTML()) {
       editor.commands.setContent(content || '');
     }
-  }, [content, editor, isMarkdownMode]);
-
-  // Handle markdown content changes
-  const handleMarkdownChange = (e) => {
-    const newMarkdown = e.target.value;
-    setMarkdownContent(newMarkdown);
-    onChange(newMarkdown);
-  };
-
-  // When switching between modes
-  useEffect(() => {
-    if (isMarkdownMode) {
-      // When switching to markdown mode, initialize with current content
-      if (editor) {
-        const html = editor.getHTML();
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = html;
-        setMarkdownContent(tempDiv.textContent || '');
-      }
-    } else {
-      // When switching to rich text mode, convert markdown to HTML
-      if (editor && markdownContent) {
-        editor.commands.setContent(markdownContent);
-      }
-    }
-  }, [isMarkdownMode, editor]);
+  }, [content, editor]);
 
   return (
     <div className={`flex flex-col h-full rounded-xl overflow-hidden ${darkMode ? 'text-white' : 'text-gray-800'}`}>
       <MenuBar
         editor={editor}
         darkMode={darkMode}
-        isMarkdownMode={isMarkdownMode}
-        setIsMarkdownMode={setIsMarkdownMode}
       />
-      <div className="flex-1 overflow-auto">
-        {isMarkdownMode ? (
-          <div className={`h-full p-4 ${darkMode ? 'bg-gray-900/70' : 'bg-white/70'} backdrop-blur-sm`}>
-            <textarea
-              value={markdownContent}
-              onChange={handleMarkdownChange}
-              className={`w-full h-full outline-none resize-none font-mono rounded-lg p-4 ${darkMode ? 'bg-gray-800/50 text-white' : 'bg-gray-50/50 text-gray-800'} backdrop-blur-sm shadow-inner`}
-              placeholder="Write in Markdown format..."
-            />
-          </div>
-        ) : (
-          <div className={`h-full ${darkMode ? 'bg-gray-900/70' : 'bg-white/70'} backdrop-blur-sm p-4`}>
-            <EditorContent editor={editor} className="h-full" />
-          </div>
-        )}
+      <div className="flex-1 overflow-hidden">
+        <div className={`h-full ${darkMode ? 'bg-gray-900/70' : 'bg-white/70'} backdrop-blur-sm p-4 overflow-auto`}>
+          <EditorContent editor={editor} className="h-full" />
+        </div>
       </div>
     </div>
   );

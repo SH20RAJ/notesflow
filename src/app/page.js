@@ -238,12 +238,12 @@ export default function Home() {
         .replace(/<blockquote>(.*?)<\/blockquote>/gs, '> $1\n')
         .replace(/<p>(.*?)<\/p>/g, '$1\n\n')
         .replace(/<br\s*\/?>/g, '\n')
-        .replace(/<ul>(.*?)<\/ul>/gs, function(match, p1) {
+        .replace(/<ul>(.*?)<\/ul>/gs, function(_, p1) {
           return p1.replace(/<li>(.*?)<\/li>/g, '- $1\n');
         })
-        .replace(/<ol>(.*?)<\/ol>/gs, function(match, p1) {
+        .replace(/<ol>(.*?)<\/ol>/gs, function(_, p1) {
           let index = 1;
-          return p1.replace(/<li>(.*?)<\/li>/g, function(match, p1) {
+          return p1.replace(/<li>(.*?)<\/li>/g, function(_, p1) {
             return `${index++}. ${p1}\n`;
           });
         })
@@ -269,14 +269,15 @@ export default function Home() {
   };
 
   return (
-    <div className={`min-h-screen flex flex-col ${darkMode ? 'dark bg-gradient-to-br from-gray-900 to-gray-800 text-white' : 'bg-gradient-to-br from-white to-gray-50 text-gray-800'}`}>
+    <div className={`h-screen flex flex-col overflow-hidden ${darkMode ? 'dark bg-gradient-to-br from-gray-900 to-gray-800 text-white' : 'bg-gradient-to-br from-white to-gray-50 text-gray-800'}`}>
+      <div className="flex flex-col flex-1 overflow-hidden">
       {/* Header */}
       <header className={`p-3 md:p-4 flex justify-between items-center ${darkMode ? 'bg-gray-900/50 backdrop-blur-md' : 'bg-white/50 backdrop-blur-md'} shadow-sm`}>
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg">
             <span className="text-white text-lg font-bold">N</span>
           </div>
-          <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-indigo-600">NoteSOP</h1>
+          <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-indigo-600">NotesFlow</h1>
         </div>
       </header>
 
@@ -387,7 +388,7 @@ export default function Home() {
         </aside>
 
         {/* Main content */}
-        <main className={`flex-1 flex flex-col overflow-hidden ${activeNote ? 'flex' : 'hidden md:flex'} ${darkMode ? 'bg-gray-900/30' : 'bg-white/30'} backdrop-blur-sm`}>
+        <main className={`flex-1 flex flex-col ${activeNote ? 'flex' : 'hidden md:flex'} ${darkMode ? 'bg-gray-900/30' : 'bg-white/30'} backdrop-blur-sm overflow-hidden`}>
           {/* Mobile back button */}
           {activeNote && (
             <div className={`md:hidden p-3 ${darkMode ? 'bg-gray-900/50' : 'bg-white/50'} backdrop-blur-md shadow-sm`}>
@@ -436,8 +437,8 @@ export default function Home() {
                   </button>
                 </div>
               </div>
-              <div className="flex-1 overflow-hidden p-1 md:p-3">
-                <div className={`h-full rounded-xl overflow-hidden shadow-lg ${darkMode ? 'bg-gray-900/50' : 'bg-white/50'} backdrop-blur-sm`}>
+              <div className="flex-1 p-1 md:p-3 overflow-hidden">
+                <div className={`h-full rounded-xl shadow-lg ${darkMode ? 'bg-gray-900/50' : 'bg-white/50'} backdrop-blur-sm overflow-auto`}>
                   <RichTextEditor
                     content={activeNoteContent}
                     onChange={(newContent) => setActiveNoteContent(newContent)}
@@ -486,6 +487,7 @@ export default function Home() {
           </div>
         </div>
       </footer>
+      </div>
     </div>
   );
 }

@@ -173,8 +173,28 @@ textarea, input {
   margin: 1rem 0;
 }
 
+.ProseMirror ul {
+  list-style-type: disc;
+}
+
+.ProseMirror ol {
+  list-style-type: decimal;
+}
+
 .ProseMirror li {
   margin: 0.5rem 0;
+  padding-left: 0.5rem;
+}
+
+/* Make bullets and numbers more visible in dark mode */
+.dark .ProseMirror ul {
+  list-style-type: disc;
+  color: #d1d5db; /* Gray-300 */
+}
+
+.dark .ProseMirror ol {
+  list-style-type: decimal;
+  color: #d1d5db; /* Gray-300 */
 }
 
 .ProseMirror hr {
