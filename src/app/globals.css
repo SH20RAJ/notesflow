@@ -66,6 +66,7 @@ textarea, input {
   outline: none;
   font-family: var(--font-sans, Arial, Helvetica, sans-serif);
   line-height: 1.6;
+  height: auto;
 }
 
 .ProseMirror p {

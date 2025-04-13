@@ -16,6 +16,7 @@ export default function Home() {
   const [activeNoteContent, setActiveNoteContent] = useState("");
   const [activeNoteTitle, setActiveNoteTitle] = useState("");
   const [darkMode, setDarkMode] = useState(false);
+  const [sortOption, setSortOption] = useState("lastEdited"); // Default sort by last edited
 
   // Load notes from localStorage on initial render
   useEffect(() => {
@@ -296,6 +297,27 @@ export default function Home() {
             </button>
           </div>
 
+          {/* Sort options */}
+          {notes.length > 0 && (
+            <div className="px-3 py-2">
+              <div className={`flex items-center gap-2 ${darkMode ? 'bg-gray-800/50' : 'bg-gray-100/50'} rounded-lg p-2`}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+                </svg>
+                <select
+                  value={sortOption}
+                  onChange={(e) => setSortOption(e.target.value)}
+                  className={`text-xs w-full outline-none ${darkMode ? 'bg-gray-800/50 text-gray-300' : 'bg-gray-100/50 text-gray-700'}`}
+                >
+                  <option value="lastEdited">Last edited</option>
+                  <option value="created">Date created</option>
+                  <option value="title">Title (A-Z)</option>
+                  <option value="titleDesc">Title (Z-A)</option>
+                </select>
+              </div>
+            </div>
+          )}
+
           <div className="flex-1 overflow-y-auto px-3">
             {notes.length === 0 ? (
               <div className="p-8 text-center text-gray-500 flex flex-col items-center justify-center h-full">
@@ -307,7 +329,22 @@ export default function Home() {
               </div>
             ) : (
               <ul className="space-y-2 py-3">
-                {notes.map(note => (
+                {[...notes]
+                  .sort((a, b) => {
+                    switch (sortOption) {
+                      case 'lastEdited':
+                        return new Date(b.lastEdited) - new Date(a.lastEdited);
+                      case 'created':
+                        return new Date(b.created) - new Date(a.created);
+                      case 'title':
+                        return a.title.localeCompare(b.title);
+                      case 'titleDesc':
+                        return b.title.localeCompare(a.title);
+                      default:
+                        return new Date(b.lastEdited) - new Date(a.lastEdited);
+                    }
+                  })
+                  .map(note => (
                   <li
                     key={note.id}
                     className={`p-3 rounded-xl cursor-pointer transition-all duration-200 flex justify-between items-start ${darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-100'} ${activeNote === note.id ? (darkMode ? 'bg-gray-800 shadow-md border-l-4 border-indigo-500' : 'bg-indigo-50 shadow-md border-l-4 border-indigo-500') : ''}`}
