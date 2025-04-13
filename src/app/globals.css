@@ -59,6 +59,165 @@ textarea, input {
   font-family: var(--font-sans, Arial, Helvetica, sans-serif);
 }
 
+/* TipTap Editor Styles */
+.ProseMirror {
+  min-height: 100%;
+  padding: 1rem;
+  outline: none;
+  font-family: var(--font-sans, Arial, Helvetica, sans-serif);
+  line-height: 1.6;
+}
+
+.ProseMirror p {
+  margin: 1em 0;
+}
+
+.ProseMirror > *:first-child {
+  margin-top: 0;
+}
+
+.ProseMirror img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.5rem auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.ProseMirror img:hover {
+  transform: scale(1.01);
+}
+
+.ProseMirror blockquote {
+  border-left: 4px solid #6366f1; /* Indigo-500 */
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0.75rem 1.5rem;
+  color: #4b5563; /* Gray-600 */
+  background-color: rgba(99, 102, 241, 0.05);
+  border-radius: 0.25rem;
+  font-style: italic;
+}
+
+.dark .ProseMirror blockquote {
+  border-left-color: #818cf8; /* Indigo-400 */
+  color: #d1d5db; /* Gray-300 */
+  background-color: rgba(99, 102, 241, 0.1);
+}
+
+.ProseMirror pre {
+  background: #1e293b; /* Slate-800 */
+  color: #e2e8f0; /* Slate-200 */
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 1.5rem 0;
+}
+
+.ProseMirror code {
+  background: rgba(99, 102, 241, 0.1); /* Indigo with opacity */
+  color: #6366f1; /* Indigo-500 */
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.9em;
+}
+
+.dark .ProseMirror code {
+  background: rgba(129, 140, 248, 0.15); /* Indigo-400 with opacity */
+  color: #a5b4fc; /* Indigo-300 */
+}
+
+.ProseMirror h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #4f46e5; /* Indigo-600 */
+}
+
+.dark .ProseMirror h1 {
+  color: #818cf8; /* Indigo-400 */
+}
+
+.ProseMirror h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+  color: #4f46e5; /* Indigo-600 */
+}
+
+.dark .ProseMirror h2 {
+  color: #818cf8; /* Indigo-400 */
+}
+
+.ProseMirror h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #4f46e5; /* Indigo-600 */
+}
+
+.dark .ProseMirror h3 {
+  color: #818cf8; /* Indigo-400 */
+}
+
+.ProseMirror ul,
+.ProseMirror ol {
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+}
+
+.ProseMirror li {
+  margin: 0.5rem 0;
+}
+
+.ProseMirror hr {
+  border: none;
+  border-top: 2px solid rgba(99, 102, 241, 0.2); /* Indigo with opacity */
+  margin: 2rem 0;
+}
+
+.dark .ProseMirror hr {
+  border-top-color: rgba(129, 140, 248, 0.2); /* Indigo-400 with opacity */
+}
+
+.ProseMirror a {
+  color: #4f46e5; /* Indigo-600 */
+  text-decoration: underline;
+  text-decoration-color: rgba(99, 102, 241, 0.4); /* Indigo with opacity */
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+  transition: all 0.2s ease;
+}
+
+.ProseMirror a:hover {
+  color: #4338ca; /* Indigo-700 */
+  text-decoration-color: rgba(99, 102, 241, 0.8); /* Indigo with more opacity */
+}
+
+.dark .ProseMirror a {
+  color: #818cf8; /* Indigo-400 */
+  text-decoration-color: rgba(129, 140, 248, 0.4); /* Indigo-400 with opacity */
+}
+
+.dark .ProseMirror a:hover {
+  color: #a5b4fc; /* Indigo-300 */
+  text-decoration-color: rgba(129, 140, 248, 0.8); /* Indigo-400 with more opacity */
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .ProseMirror {
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+}
+
 /* Fix for template string in JSX */
 .border-dynamic {
   border-color: inherit;
