@@ -1,20 +1,20 @@
 "use client";
 
 import { useState } from 'react';
-import Image from 'next/image';
+import Link from 'next/link';
 
 export default function LandingPage({ onGetStarted, darkMode }) {
   const [email, setEmail] = useState('');
-  
+
   return (
-    <div className={`min-h-screen flex flex-col ${darkMode ? 'dark bg-gradient-to-br from-gray-900 to-gray-800 text-white' : 'bg-gradient-to-br from-white to-gray-50 text-gray-800'}`}>
+    <div className={`min-h-screen flex flex-col ${darkMode ? 'dark bg-gradient-to-br from-gray-900 to-gray-800 text-white' : 'bg-gradient-to-br from-white to-gray-50 text-gray-400'}`}>
       {/* Header */}
       <header className={`p-4 md:p-6 flex justify-between items-center ${darkMode ? 'bg-gray-900/50 backdrop-blur-md' : 'bg-white/50 backdrop-blur-md'} shadow-sm`}>
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg">
             <span className="text-white text-lg font-bold">N</span>
           </div>
-          <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-indigo-600">NoteSOP</h1>
+          <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-indigo-600">NotesFlow</h1>
         </div>
         <button
           onClick={onGetStarted}
@@ -30,8 +30,8 @@ export default function LandingPage({ onGetStarted, darkMode }) {
           <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
             Your thoughts, <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-indigo-600">beautifully organized</span>
           </h2>
-          <p className="text-lg md:text-xl mb-8 text-gray-600 dark:text-gray-300">
-            NoteSOP is a privacy-focused note-taking app that helps you capture ideas, organize thoughts, and boost your productivity.
+          <p className="text-lg md:text-xl mb-8 text-gray-900 dark:text-gray-500">
+            NotesFlow is a privacy-focused note-taking app that helps you capture ideas, organize thoughts, and boost your productivity.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 mb-8">
             <button
@@ -43,39 +43,22 @@ export default function LandingPage({ onGetStarted, darkMode }) {
               </svg>
               Start Taking Notes
             </button>
-            <div className="relative">
-              <input
-                type="email"
-                placeholder="Enter email for updates"
-                className={`w-full px-4 py-3 rounded-xl shadow-md outline-none ${darkMode ? 'bg-gray-800 text-white border border-gray-700' : 'bg-white text-gray-800 border border-gray-200'}`}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <button 
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 px-3 py-1 rounded-lg bg-indigo-100 text-indigo-800 dark:bg-indigo-900/50 dark:text-indigo-300 text-sm font-medium"
-                onClick={() => {
-                  alert('Thanks for your interest! We\'ll notify you about updates.');
-                  setEmail('');
-                }}
-              >
-                Notify Me
-              </button>
-            </div>
+
           </div>
           <div className="flex items-center gap-4 flex-wrap">
-            <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+            <div className="flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
               <span>100% Free</span>
             </div>
-            <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+            <div className="flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
               <span>Privacy-Focused</span>
             </div>
-            <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+            <div className="flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
@@ -130,11 +113,11 @@ export default function LandingPage({ onGetStarted, darkMode }) {
                 </svg>
               </div>
               <h3 className="text-xl font-semibold mb-2">Rich Text Editing</h3>
-              <p className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+              <p className={`${darkMode ? 'text-gray-400' : 'text-gray-400'}`}>
                 Create beautiful notes with formatting, lists, and more. Our editor makes it easy to organize your thoughts.
               </p>
             </div>
-            
+
             {/* Feature 2 */}
             <div className={`p-6 rounded-xl ${darkMode ? 'bg-gray-800/50' : 'bg-gray-50/80'} backdrop-blur-sm shadow-lg border ${darkMode ? 'border-gray-700' : 'border-gray-200'}`}>
               <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-md mb-4">
@@ -143,11 +126,11 @@ export default function LandingPage({ onGetStarted, darkMode }) {
                 </svg>
               </div>
               <h3 className="text-xl font-semibold mb-2">Zen Mode</h3>
-              <p className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+              <p className={`${darkMode ? 'text-gray-400' : 'text-gray-400'}`}>
                 Focus on your writing with our distraction-free Zen Mode. Eliminate UI elements and immerse yourself in your thoughts.
               </p>
             </div>
-            
+
             {/* Feature 3 */}
             <div className={`p-6 rounded-xl ${darkMode ? 'bg-gray-800/50' : 'bg-gray-50/80'} backdrop-blur-sm shadow-lg border ${darkMode ? 'border-gray-700' : 'border-gray-200'}`}>
               <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-md mb-4">
@@ -156,7 +139,7 @@ export default function LandingPage({ onGetStarted, darkMode }) {
                 </svg>
               </div>
               <h3 className="text-xl font-semibold mb-2">Privacy First</h3>
-              <p className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+              <p className={`${darkMode ? 'text-gray-400' : 'text-gray-400'}`}>
                 Your notes are stored locally on your device. We don't track you or collect your data. Your thoughts remain private.
               </p>
             </div>
@@ -173,7 +156,7 @@ export default function LandingPage({ onGetStarted, darkMode }) {
           <h2 className="text-3xl font-bold mb-6">
             Cross-Device Synchronization
           </h2>
-          <p className="text-lg mb-8 max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
+          <p className="text-lg mb-8 max-w-2xl mx-auto text-gray-400 dark:text-gray-500">
             We're working on secure cloud synchronization to keep your notes in sync across all your devices while maintaining our commitment to privacy.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -205,8 +188,8 @@ export default function LandingPage({ onGetStarted, darkMode }) {
           <h2 className="text-3xl font-bold mb-6">
             Ready to organize your thoughts?
           </h2>
-          <p className="text-lg mb-8 max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
-            Start using NoteSOP today. No sign-up required, just click and start taking notes.
+          <p className="text-lg mb-8 max-w-2xl mx-auto text-gray-400 dark:text-gray-500">
+            Start using NotesFlow today. No sign-up required, just click and start taking notes.
           </p>
           <button
             onClick={onGetStarted}
@@ -221,33 +204,24 @@ export default function LandingPage({ onGetStarted, darkMode }) {
       </section>
 
       {/* Footer */}
-      <footer className={`py-8 px-6 ${darkMode ? 'bg-gray-900/70 text-gray-400' : 'bg-white/70 text-gray-600'} backdrop-blur-md shadow-inner`}>
+      <footer className={`py-8 px-6 ${darkMode ? 'bg-gray-900/70 text-gray-400' : 'bg-white/70 text-gray-400'} backdrop-blur-md shadow-inner`}>
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-sm">
               <span className="text-white text-xs font-bold">N</span>
             </div>
-            <p className="font-medium">NoteSOP - Your notes are stored locally for complete privacy</p>
+            <p className="font-medium">NotesFlow - Your notes are stored locally for complete privacy</p>
           </div>
           <div className="flex items-center gap-4">
-            <button 
-              onClick={() => {}} 
-              className={`p-2 rounded-lg transition-all duration-300 ${darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}
-            >
+            <Link href="/terms" className={`p-2 rounded-lg transition-all duration-300 ${darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}>
               Terms
-            </button>
-            <button 
-              onClick={() => {}} 
-              className={`p-2 rounded-lg transition-all duration-300 ${darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}
-            >
+            </Link>
+            <Link href="/privacy" className={`p-2 rounded-lg transition-all duration-300 ${darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}>
               Privacy
-            </button>
-            <button 
-              onClick={() => {}} 
-              className={`p-2 rounded-lg transition-all duration-300 ${darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}
-            >
+            </Link>
+            <Link href="/contact" className={`p-2 rounded-lg transition-all duration-300 ${darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}>
               Contact
-            </button>
+            </Link>
           </div>
         </div>
       </footer>

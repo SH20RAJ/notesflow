@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 
 // Import the RichTextEditor component with dynamic loading to avoid SSR issues
 const RichTextEditor = dynamic(() => import('@/components/RichTextEditor'), {
@@ -311,7 +312,7 @@ export default function Home() {
             <span className="text-white text-lg font-bold">N</span>
           </div>
           <div>
-            <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-indigo-600">NoteSOP</h1>
+            <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-indigo-600">NotesFlow</h1>
             <p className="text-xs text-gray-500 dark:text-gray-400">Your notes are stored locally for complete privacy</p>
           </div>
         </div>
@@ -319,7 +320,7 @@ export default function Home() {
         <div className="hidden md:flex items-center gap-2">
           {activeNote && (
             <>
-              <span className="px-3 py-1 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900/50 dark:text-indigo-300">
+              <span className="px-3 py-1 rounded-full text-xs font-medium bg-indigo-400 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-300">
                 <span className="text-indigo-500 font-bold">✨ Cross-Device Sync</span> coming soon!
               </span>
               <div className="flex items-center gap-2">
@@ -607,22 +608,28 @@ export default function Home() {
         </main>
       </div>
 
-      {/* Footer */}
-      {/* <footer className={`py-4 px-6 text-center ${darkMode ? 'bg-gray-900/70 text-gray-400' : 'bg-white/70 text-gray-600'} backdrop-blur-md shadow-inner`}>
+      {/* Footer with links */}
+      <footer className={`py-4 px-6 ${darkMode ? 'bg-gray-900/70 text-gray-400' : 'bg-white/70 text-gray-600'} backdrop-blur-md shadow-inner`}>
         <div className="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-3">
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-sm">
               <span className="text-white text-xs font-bold">N</span>
             </div>
-            <p className="font-medium">NoteSOP - Your notes are stored locally for complete privacy</p>
+            <p className="font-medium">NotesFlow - Your notes are stored locally for complete privacy</p>
           </div>
-          <div className="flex items-center gap-1">
-            <span className="px-3 py-1 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900/50 dark:text-indigo-300">
-              <span className="text-indigo-500 font-bold">✨ Cross-Device Sync</span> coming soon!
-            </span>
+          <div className="flex items-center gap-4">
+            <Link href="/terms" className={`p-2 rounded-lg transition-all duration-300 ${darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}>
+              Terms
+            </Link>
+            <Link href="/privacy" className={`p-2 rounded-lg transition-all duration-300 ${darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}>
+              Privacy
+            </Link>
+            <Link href="/contact" className={`p-2 rounded-lg transition-all duration-300 ${darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}>
+              Contact
+            </Link>
           </div>
         </div>
-      </footer> */}
+      </footer>
       </div>
     </div>
   );
