@@ -4,7 +4,7 @@
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "notesop",
+	"name": "notesflow",
 	"compatibility_date": "2025-04-12",
 	"compatibility_flags": [
 		"nodejs_compat"

@@ -1,5 +1,5 @@
 {
-	"name": "notesop",
+	"name": "notesflow",
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
@@ -12,6 +12,14 @@
 		"deploy": "pnpm pages:build && wrangler pages deploy"
 	},
 	"dependencies": {
+		"@tiptap/extension-code-block-lowlight": "^2.11.7",
+		"@tiptap/extension-image": "^2.11.7",
+		"@tiptap/extension-link": "^2.11.7",
+		"@tiptap/extension-placeholder": "^2.11.7",
+		"@tiptap/pm": "^2.11.7",
+		"@tiptap/react": "^2.11.7",
+		"@tiptap/starter-kit": "^2.11.7",
+		"lowlight": "^3.3.0",
 		"next": "15.2.1",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0"

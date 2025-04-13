@@ -1,67 +1,90 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`c3`](https://developers.cloudflare.com/pages/get-started/c3).
+# NotesFlow
 
-## Getting Started
+---
 
-First, run the development server:
+Online NotesPad is a free, privacy-focused note-taking application that lets you create, edit, and manage your notes with ease. All notes are stored locally for complete privacy.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+OnlineNotesPad is your personal space to capture thoughts, organize ideas, and stay productive — all in one beautifully simple interface.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+No sign-up is needed. No distractions. Just effortless online note-taking right in your browser – anytime, anywhere. 📝✨
 
-## Cloudflare integration
+## Current Features
 
-Besides the `dev` script mentioned above `c3` has added a few extra scripts that allow you to integrate the application with the [Cloudflare Pages](https://pages.cloudflare.com/) environment, these are:
-  - `pages:build` to build the application for Pages using the [`@cloudflare/next-on-pages`](https://github.com/cloudflare/next-on-pages) CLI
-  - `preview` to locally preview your Pages application using the [Wrangler](https://developers.cloudflare.com/workers/wrangler/) CLI
-  - `deploy` to deploy your Pages application using the [Wrangler](https://developers.cloudflare.com/workers/wrangler/) CLI
+- Save notes locally
+- Import/export as .txt or .json
+- Works offline once loaded
+- Dark mode included (for all you night owls 🌙)
 
-> __Note:__ while the `dev` script is optimal for local development you should preview your Pages application as well (periodically or before deployments) in order to make sure that it can properly work in the Pages environment (for more details see the [`@cloudflare/next-on-pages` recommended workflow](https://github.com/cloudflare/next-on-pages/blob/main/internal-packages/next-dev/README.md#recommended-development-workflow))
+## Coming Soon
 
-### Bindings
+- **Cross-Device Sync**: Sync your notes across multiple devices (Until then, you can export your entire data as JSON and import it on another device)
 
-Cloudflare [Bindings](https://developers.cloudflare.com/pages/functions/bindings/) are what allows you to interact with resources available in the Cloudflare Platform.
+## Possible Features to Add
 
-You can use bindings during development, when previewing locally your application and of course in the deployed application:
+### Organization & Structure
 
-- To use bindings in dev mode you need to define them in the `next.config.js` file under `setupDevBindings`, this mode uses the `next-dev` `@cloudflare/next-on-pages` submodule. For more details see its [documentation](https://github.com/cloudflare/next-on-pages/blob/05b6256/internal-packages/next-dev/README.md).
+- **Folders/Categories**: Organize notes into folders or categories
+- **Tags**: Add tags to notes for better organization and filtering
+- **Pinned Notes**: Pin important notes to the top of the list
+- **Note Templates**: Create and use templates for common note types
+- **Hierarchical Structure**: Support for nested notes/folders
 
-- To use bindings in the preview mode you need to add them to the `pages:preview` script accordingly to the `wrangler pages dev` command. For more details see its [documentation](https://developers.cloudflare.com/workers/wrangler/commands/#dev-1) or the [Pages Bindings documentation](https://developers.cloudflare.com/pages/functions/bindings/).
+### Content & Editing
 
-- To use bindings in the deployed application you will need to configure them in the Cloudflare [dashboard](https://dash.cloudflare.com/). For more details see the  [Pages Bindings documentation](https://developers.cloudflare.com/pages/functions/bindings/).
+- **Rich Text Formatting**: Support for bold, italic, underline, headings, etc.
+- **Markdown Support**: Write notes in Markdown with live preview
+- **Code Snippets**: Syntax highlighting for code blocks
+- **Tables**: Create and edit tables within notes
+- **Checklists/To-Do Lists**: Add interactive checklists within notes
+- **Image Support**: Upload and embed images in notes
+- **File Attachments**: Attach files to notes
+- **Voice Notes**: Record and attach audio notes
+- **Drawing/Sketching**: Simple drawing tools for quick sketches
 
-#### KV Example
+### User Experience
 
-`c3` has added for you an example showing how you can use a KV binding.
+- **Customizable Themes**: Multiple color themes beyond just light/dark
+- **Custom Fonts**: Allow users to choose preferred fonts
+- **Keyboard Shortcuts**: Configurable shortcuts for power users
+- **Search Functionality**: Full-text search across all notes
+- **Auto-save**: Automatically save changes as you type
+- **Version History**: Track changes and restore previous versions
+- **Undo/Redo**: Multiple levels of undo/redo
+- **Focus Mode**: Distraction-free writing environment
+- **Reading Mode**: Optimized view for reading notes
 
-In order to enable the example:
-- Search for javascript/typescript lines containing the following comment:
-  ```ts
-  // KV Example:
-  ```
-  and uncomment the commented lines below it (also uncomment the relevant imports).
-- In the `wrangler.jsonc` file add the following configuration line:
-  ```
-  "kv_namespaces": [{ "binding": "MY_KV_NAMESPACE", "id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" }],
-  ```
-- If you're using TypeScript run the `cf-typegen` script to update the `env.d.ts` file:
-  ```bash
-  npm run cf-typegen
-  # or
-  yarn cf-typegen
-  # or
-  pnpm cf-typegen
-  # or
-  bun cf-typegen
-  ```
+### Collaboration & Sharing
 
-After doing this you can run the `dev` or `preview` script and visit the `/api/hello` route to see the example in action.
+- **Shareable Links**: Generate links to share notes (read-only or editable)
+- **Collaborative Editing**: Real-time collaboration with others
+- **Comments**: Add comments to specific parts of notes
+- **Export Options**: Additional export formats (PDF, HTML, etc.)
+- **Email Notes**: Send notes directly via email
 
-Finally, if you also want to see the example work in the deployed application make sure to add a `MY_KV_NAMESPACE` binding to your Pages application in its [dashboard kv bindings settings section](https://dash.cloudflare.com/?to=/:account/pages/view/:pages-project/settings/functions#kv_namespace_bindings_section). After having configured it make sure to re-deploy your application.
+### Productivity & Integration
+
+- **Reminders**: Set reminders for time-sensitive notes
+- **Calendar Integration**: Link notes to calendar events
+- **Web Clipper**: Browser extension to save web content as notes
+- **API Integration**: Connect with other productivity tools
+- **Shortcuts to Recent Notes**: Quick access to recently edited notes
+- **Global Search**: Search notes from anywhere in the OS (via hotkey)
+
+### Advanced Features
+
+- **Encryption**: End-to-end encryption for sensitive notes
+- **Biometric Protection**: Fingerprint/Face ID to access certain notes
+- **Offline Sync**: Synchronize notes across devices when offline
+- **Custom Metadata**: Add custom fields to notes
+- **Note Statistics**: Word count, reading time, creation/modification dates
+- **AI Features**: Smart categorization, summarization, or content suggestions
+- **OCR Support**: Extract text from images
+- **Language Translation**: Translate notes between languages
+
+### Mobile & Cross-Platform
+
+- **Responsive Design**: Optimized for mobile devices
+- **Progressive Web App (PWA)**: Install as a native-like app
+- **Touch Gestures**: Swipe and pinch gestures for mobile users
+- **Enhanced Cross-Device Sync**: Advanced synchronization options with selective sync and conflict resolution
+
