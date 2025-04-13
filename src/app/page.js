@@ -9,6 +9,11 @@ const RichTextEditor = dynamic(() => import('@/components/RichTextEditor'), {
   loading: () => <div className="flex-1 p-4 animate-pulse bg-gray-100 dark:bg-gray-800"></div>
 });
 
+// Import the LandingPage component
+const LandingPage = dynamic(() => import('@/components/LandingPage'), {
+  ssr: false,
+});
+
 export default function Home() {
   // State for notes
   const [notes, setNotes] = useState([]);
@@ -17,6 +22,8 @@ export default function Home() {
   const [activeNoteTitle, setActiveNoteTitle] = useState("");
   const [darkMode, setDarkMode] = useState(false);
   const [sortOption, setSortOption] = useState("lastEdited"); // Default sort by last edited
+  const [zenMode, setZenMode] = useState(false); // State for zen/fullscreen mode
+  const [showLanding, setShowLanding] = useState(true); // State to control landing page visibility
 
   // Load notes from localStorage on initial render
   useEffect(() => {
@@ -269,6 +276,31 @@ export default function Home() {
     URL.revokeObjectURL(url);
   };
 
+  // Function to handle getting started from landing page
+  const handleGetStarted = () => {
+    setShowLanding(false);
+    // If there are no notes, create a new one
+    if (notes.length === 0) {
+      createNewNote();
+    }
+    // Save the landing page state to localStorage
+    localStorage.setItem("showLanding", "false");
+  };
+
+  // Check if we should show the landing page on initial load
+  useEffect(() => {
+    const landingShown = localStorage.getItem("showLanding");
+    if (landingShown === "false") {
+      setShowLanding(false);
+    }
+  }, []);
+
+  // Render landing page if showLanding is true
+  if (showLanding) {
+    return <LandingPage onGetStarted={handleGetStarted} darkMode={darkMode} />;
+  }
+
+  // Render the main app
   return (
     <div className={`h-screen flex flex-col overflow-hidden ${darkMode ? 'dark bg-gradient-to-br from-gray-900 to-gray-800 text-white' : 'bg-gradient-to-br from-white to-gray-50 text-gray-800'}`}>
       <div className="flex flex-col flex-1 overflow-hidden">
@@ -278,7 +310,60 @@ export default function Home() {
           <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg">
             <span className="text-white text-lg font-bold">N</span>
           </div>
-          <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-indigo-600">NotesFlow</h1>
+          <div>
+            <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-indigo-600">NoteSOP</h1>
+            <p className="text-xs text-gray-500 dark:text-gray-400">Your notes are stored locally for complete privacy</p>
+          </div>
+        </div>
+
+        <div className="hidden md:flex items-center gap-2">
+          {activeNote && (
+            <>
+              <span className="px-3 py-1 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900/50 dark:text-indigo-300">
+                <span className="text-indigo-500 font-bold">✨ Cross-Device Sync</span> coming soon!
+              </span>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setZenMode(!zenMode)}
+                  className={`p-2 rounded-lg transition-all duration-300 ${darkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-gray-100 hover:bg-gray-200'} shadow-md flex items-center justify-center`}
+                  title={zenMode ? "Exit Zen Mode" : "Enter Zen Mode"}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    {zenMode ? (
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 9V4.5M9 9H4.5M9 9L3.75 3.75M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 15v4.5m0-4.5l5.25 5.25" />
+                    ) : (
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                    )}
+                  </svg>
+                </button>
+                <button
+                  onClick={() => {
+                    setShowLanding(true);
+                    localStorage.removeItem("showLanding");
+                  }}
+                  className={`p-2 rounded-lg transition-all duration-300 ${darkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-gray-100 hover:bg-gray-200'} shadow-md flex items-center justify-center`}
+                  title="View Landing Page"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                  </svg>
+                </button>
+              </div>
+            </>
+          )}
+          <button
+            onClick={() => {
+              setShowLanding(true);
+              localStorage.removeItem("showLanding");
+            }}
+            className={`px-3 py-1 rounded-lg transition-all duration-300 ${darkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-gray-100 hover:bg-gray-200'} shadow-md flex items-center gap-1 text-xs`}
+            title="View Landing Page"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+            <span>Home</span>
+          </button>
         </div>
       </header>
 
@@ -380,14 +465,28 @@ export default function Home() {
 
           {/* Sidebar Footer with Controls */}
           <div className={`p-3 ${darkMode ? 'bg-gray-900/90' : 'bg-white/90'} backdrop-blur-sm border-t ${darkMode ? 'border-gray-800' : 'border-gray-200'}`}>
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center justify-between gap-2 mb-2">
               <button
                 onClick={() => setDarkMode(!darkMode)}
-                className={`p-2 rounded-lg transition-all duration-300 ${darkMode ? 'bg-gray-800 hover:bg-gray-700 text-yellow-300' : 'bg-gray-100 hover:bg-gray-200 text-indigo-600'} shadow-sm flex items-center gap-1.5 text-xs w-full`}
+                className={`p-2 rounded-lg transition-all duration-300 ${darkMode ? 'bg-gray-800 hover:bg-gray-700 text-yellow-300' : 'bg-gray-100 hover:bg-gray-200 text-indigo-600'} shadow-sm flex items-center gap-1.5 text-xs flex-1`}
                 title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
               >
                 {darkMode ? "🌙" : "☀️"}
                 <span>{darkMode ? "Dark Mode" : "Light Mode"}</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  setShowLanding(true);
+                  localStorage.removeItem("showLanding");
+                }}
+                className={`p-2 rounded-lg transition-all duration-300 ${darkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-gray-100 hover:bg-gray-200'} shadow-sm flex items-center gap-1.5 text-xs`}
+                title="View Landing Page"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+                <span>Home</span>
               </button>
             </div>
 
@@ -509,7 +608,7 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <footer className={`py-4 px-6 text-center ${darkMode ? 'bg-gray-900/70 text-gray-400' : 'bg-white/70 text-gray-600'} backdrop-blur-md shadow-inner`}>
+      {/* <footer className={`py-4 px-6 text-center ${darkMode ? 'bg-gray-900/70 text-gray-400' : 'bg-white/70 text-gray-600'} backdrop-blur-md shadow-inner`}>
         <div className="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-3">
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-sm">
@@ -523,7 +622,7 @@ export default function Home() {
             </span>
           </div>
         </div>
-      </footer>
+      </footer> */}
       </div>
     </div>
   );
