@@ -1,23 +1,30 @@
 {
-  "name": "notesop",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "next": "15.2.1"
-  },
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4",
-    "eslint": "^9",
-    "eslint-config-next": "15.2.1",
-    "@eslint/eslintrc": "^3"
-  }
+	"name": "notesop",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev --turbopack",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint",
+		"pages:build": "pnpm next-on-pages",
+		"preview": "pnpm pages:build && wrangler pages dev",
+		"deploy": "pnpm pages:build && wrangler pages deploy"
+	},
+	"dependencies": {
+		"next": "15.2.1",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
+	},
+	"devDependencies": {
+		"@cloudflare/next-on-pages": "1",
+		"@cloudflare/workers-types": "^4.20250412.0",
+		"@eslint/eslintrc": "^3",
+		"@tailwindcss/postcss": "^4",
+		"eslint": "^9",
+		"eslint-config-next": "15.2.1",
+		"tailwindcss": "^4",
+		"vercel": "^41.6.0",
+		"wrangler": "^4.10.0"
+	}
 }
