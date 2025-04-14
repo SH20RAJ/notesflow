@@ -35,7 +35,7 @@ export default function ContactPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     // Validate form
     if (!formData.name || !formData.email || !formData.message) {
       setFormStatus({
@@ -54,7 +54,7 @@ export default function ContactPage() {
         success: true,
         message: 'Thank you for your message! We will get back to you soon.'
       });
-      
+
       // Reset form
       setFormData({
         name: '',
@@ -89,11 +89,11 @@ export default function ContactPage() {
       <main className="flex-1 container mx-auto px-4 py-8 md:px-6 md:py-12 max-w-4xl">
         <div className={`p-8 rounded-xl shadow-lg ${darkMode ? 'bg-gray-900/50' : 'bg-white/50'} backdrop-blur-sm`}>
           <h1 className="text-3xl font-bold mb-6">Contact Us</h1>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <p className="mb-6">We'd love to hear from you! Whether you have a question about NotesFlow, need help with the application, or want to provide feedback, please don't hesitate to reach out.</p>
-              
+              <p className="mb-6">We&apos;d love to hear from you! Whether you have a question about NotesFlow, need help with the application, or want to provide feedback, please don&apos;t hesitate to reach out.</p>
+
               <div className="space-y-4 mb-8">
                 <div className="flex items-start gap-3">
                   <div className="mt-1">
@@ -106,7 +106,7 @@ export default function ContactPage() {
                     <p className="text-gray-600 dark:text-gray-300">support@notesflow.com</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start gap-3">
                   <div className="mt-1">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -116,6 +116,8 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-semibold">Social Media</h3>
                     <div className="flex gap-2 mt-1">
+                      <a href="https://www.linkedin.com/in/sh20raj/" target="_blank" rel="noopener noreferrer" className="text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400">LinkedIn</a>
+                      <span>•</span>
                       <a href="#" className="text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400">Twitter</a>
                       <span>•</span>
                       <a href="#" className="text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400">GitHub</a>
@@ -123,13 +125,13 @@ export default function ContactPage() {
                   </div>
                 </div>
               </div>
-              
+
               <div className={`p-4 rounded-lg ${darkMode ? 'bg-gray-800/70' : 'bg-gray-50'}`}>
                 <h3 className="font-semibold mb-2">Response Time</h3>
                 <p className="text-sm">We typically respond to all inquiries within 24-48 hours during business days.</p>
               </div>
             </div>
-            
+
             <div>
               {formStatus.submitted && formStatus.success ? (
                 <div className={`p-6 rounded-lg ${darkMode ? 'bg-green-900/30 border border-green-700' : 'bg-green-50 border border-green-200'} flex flex-col items-center justify-center h-full`}>
@@ -138,7 +140,7 @@ export default function ContactPage() {
                   </svg>
                   <h3 className="text-xl font-semibold mb-2">Message Sent!</h3>
                   <p className="text-center">{formStatus.message}</p>
-                  <button 
+                  <button
                     onClick={() => setFormStatus(prev => ({...prev, submitted: false}))}
                     className="mt-4 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg transition-colors"
                   >
@@ -152,7 +154,7 @@ export default function ContactPage() {
                       <p className="text-red-600 dark:text-red-400">{formStatus.message}</p>
                     </div>
                   )}
-                  
+
                   <div>
                     <label htmlFor="name" className="block mb-1 font-medium">Name <span className="text-red-500">*</span></label>
                     <input
@@ -165,7 +167,7 @@ export default function ContactPage() {
                       required
                     />
                   </div>
-                  
+
                   <div>
                     <label htmlFor="email" className="block mb-1 font-medium">Email <span className="text-red-500">*</span></label>
                     <input
@@ -178,7 +180,7 @@ export default function ContactPage() {
                       required
                     />
                   </div>
-                  
+
                   <div>
                     <label htmlFor="subject" className="block mb-1 font-medium">Subject</label>
                     <input
@@ -190,7 +192,7 @@ export default function ContactPage() {
                       className={`w-full px-4 py-2 rounded-lg shadow-sm outline-none ${darkMode ? 'bg-gray-800 text-white border border-gray-700 focus:border-indigo-500' : 'bg-white text-gray-800 border border-gray-200 focus:border-indigo-500'}`}
                     />
                   </div>
-                  
+
                   <div>
                     <label htmlFor="message" className="block mb-1 font-medium">Message <span className="text-red-500">*</span></label>
                     <textarea
@@ -203,7 +205,7 @@ export default function ContactPage() {
                       required
                     ></textarea>
                   </div>
-                  
+
                   <button
                     type="submit"
                     className="px-6 py-3 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-medium shadow-md transition-all duration-300 transform hover:scale-[1.02] w-full"

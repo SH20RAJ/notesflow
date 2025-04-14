@@ -140,7 +140,7 @@ export default function LandingPage({ onGetStarted, darkMode }) {
               </div>
               <h3 className="text-xl font-semibold mb-2">Privacy First</h3>
               <p className={`${darkMode ? 'text-gray-400' : 'text-gray-400'}`}>
-                Your notes are stored locally on your device. We don't track you or collect your data. Your thoughts remain private.
+                Your notes are stored locally on your device. We don&apos;t track you or collect your data. Your thoughts remain private.
               </p>
             </div>
           </div>
@@ -157,7 +157,7 @@ export default function LandingPage({ onGetStarted, darkMode }) {
             Cross-Device Synchronization
           </h2>
           <p className="text-lg mb-8 max-w-2xl mx-auto text-gray-400 dark:text-gray-500">
-            We're working on secure cloud synchronization to keep your notes in sync across all your devices while maintaining our commitment to privacy.
+            We&apos;re working on secure cloud synchronization to keep your notes in sync across all your devices while maintaining our commitment to privacy.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <div className={`p-4 rounded-xl ${darkMode ? 'bg-gray-800/50' : 'bg-gray-50/80'} backdrop-blur-sm shadow-lg border ${darkMode ? 'border-gray-700' : 'border-gray-200'} flex items-center gap-3`}>
@@ -222,6 +222,9 @@ export default function LandingPage({ onGetStarted, darkMode }) {
             <Link href="/contact" className={`p-2 rounded-lg transition-all duration-300 ${darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}>
               Contact
             </Link>
+            <a href="https://www.linkedin.com/in/sh20raj/" target="_blank" rel="noopener noreferrer" className={`p-2 rounded-lg transition-all duration-300 ${darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}>
+              LinkedIn
+            </a>
           </div>
         </div>
       </footer>

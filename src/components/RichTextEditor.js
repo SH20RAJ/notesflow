@@ -12,38 +12,42 @@ import { useCallback, useEffect } from 'react';
 const lowlight = createLowlight(common);
 
 const MenuBar = ({ editor, darkMode }) => {
-  if (!editor) {
-    return null;
-  }
-
   const buttonClass = `p-1.5 rounded-lg transition-all duration-200 ${darkMode ? 'hover:bg-gray-800 text-gray-300' : 'hover:bg-gray-100 text-gray-700'}`;
   const activeButtonClass = `p-1.5 rounded-lg transition-all duration-200 ${darkMode ? 'bg-gray-800 text-indigo-400' : 'bg-indigo-50 text-indigo-700'} shadow-sm`;
 
   const addImage = useCallback(() => {
-    const url = window.prompt('Enter the URL of the image:');
-    if (url) {
-      editor.chain().focus().setImage({ src: url }).run();
+    if (editor) {
+      const url = window.prompt('Enter the URL of the image:');
+      if (url) {
+        editor.chain().focus().setImage({ src: url }).run();
+      }
     }
   }, [editor]);
 
   const setLink = useCallback(() => {
-    const previousUrl = editor.getAttributes('link').href;
-    const url = window.prompt('Enter the URL:', previousUrl);
+    if (editor) {
+      const previousUrl = editor.getAttributes('link').href;
+      const url = window.prompt('Enter the URL:', previousUrl);
 
-    // cancelled
-    if (url === null) {
-      return;
+      // cancelled
+      if (url === null) {
+        return;
+      }
+
+      // empty
+      if (url === '') {
+        editor.chain().focus().extendMarkRange('link').unsetLink().run();
+        return;
+      }
+
+      // update link
+      editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
     }
-
-    // empty
-    if (url === '') {
-      editor.chain().focus().extendMarkRange('link').unsetLink().run();
-      return;
-    }
-
-    // update link
-    editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
   }, [editor]);
+
+  if (!editor) {
+    return null;
+  }
 
   return (
     <div className={`flex flex-wrap gap-1 p-2 ${darkMode ? 'bg-gray-900/70' : 'bg-white/70'} backdrop-blur-sm shadow-sm border-b ${darkMode ? 'border-gray-800' : 'border-gray-200'}`}>

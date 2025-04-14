@@ -115,7 +115,7 @@ export default function Home() {
 
       return () => clearTimeout(timeoutId);
     }
-  }, [activeNoteContent, activeNoteTitle]);
+  }, [activeNoteContent, activeNoteTitle, activeNote, updateNote]);
 
   // Handle note selection
   const selectNote = (noteId) => {

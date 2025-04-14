@@ -38,11 +38,11 @@ export default function TermsPage() {
       <main className="flex-1 container mx-auto px-4 py-8 md:px-6 md:py-12 max-w-4xl">
         <div className={`p-8 rounded-xl shadow-lg ${darkMode ? 'bg-gray-900/50' : 'bg-white/50'} backdrop-blur-sm`}>
           <h1 className="text-3xl font-bold mb-6">Terms of Service</h1>
-          
+
           <div className="space-y-6">
             <section>
               <h2 className="text-xl font-semibold mb-3">1. Introduction</h2>
-              <p className="mb-3">Welcome to NotesFlow ("we," "our," or "us"). These Terms of Service ("Terms") govern your access to and use of the NotesFlow application and website (collectively, the "Service").</p>
+              <p className="mb-3">Welcome to NotesFlow (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;). These Terms of Service (&quot;Terms&quot;) govern your access to and use of the NotesFlow application and website (collectively, the &quot;Service&quot;).</p>
               <p>By accessing or using the Service, you agree to be bound by these Terms. If you disagree with any part of the Terms, you may not access the Service.</p>
             </section>
 
@@ -67,7 +67,7 @@ export default function TermsPage() {
 
             <section>
               <h2 className="text-xl font-semibold mb-3">5. Disclaimer of Warranties</h2>
-              <p className="mb-3">The Service is provided "as is" and "as available" without warranties of any kind, either express or implied, including, but not limited to, implied warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
+              <p className="mb-3">The Service is provided &quot;as is&quot; and &quot;as available&quot; without warranties of any kind, either express or implied, including, but not limited to, implied warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
               <p>We do not warrant that the Service will be uninterrupted or error-free, that defects will be corrected, or that the Service or the server that makes it available are free of viruses or other harmful components.</p>
             </section>
 
@@ -78,7 +78,7 @@ export default function TermsPage() {
 
             <section>
               <h2 className="text-xl font-semibold mb-3">7. Changes to Terms</h2>
-              <p className="mb-3">We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will try to provide at least 30 days' notice prior to any new terms taking effect.</p>
+              <p className="mb-3">We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will try to provide at least 30 days&apos; notice prior to any new terms taking effect.</p>
               <p>By continuing to access or use our Service after those revisions become effective, you agree to be bound by the revised terms.</p>
             </section>
 

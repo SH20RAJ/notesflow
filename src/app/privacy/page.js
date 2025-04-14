@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 
 import { useState, useEffect } from 'react';
@@ -38,7 +39,7 @@ export default function PrivacyPage() {
       <main className="flex-1 container mx-auto px-4 py-8 md:px-6 md:py-12 max-w-4xl">
         <div className={`p-8 rounded-xl shadow-lg ${darkMode ? 'bg-gray-900/50' : 'bg-white/50'} backdrop-blur-sm`}>
           <h1 className="text-3xl font-bold mb-6">Privacy Policy</h1>
-          
+
           <div className="space-y-6">
             <section>
               <h2 className="text-xl font-semibold mb-3">1. Introduction</h2>
@@ -60,11 +61,11 @@ export default function PrivacyPage() {
 
             <section>
               <h2 className="text-xl font-semibold mb-3">3. Local Storage</h2>
-              <p className="mb-3">All your notes and application preferences are stored locally on your device using your browser's localStorage mechanism. This means:</p>
+              <p className="mb-3">All your notes and application preferences are stored locally on your device using your browser&apos;s localStorage mechanism. This means:</p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>Your data remains on your device</li>
                 <li>We cannot access your notes</li>
-                <li>Your notes will be lost if you clear your browser's localStorage or use a different browser/device (until we implement our upcoming sync feature)</li>
+                <li>Your notes will be lost if you clear your browser&apos;s localStorage or use a different browser/device (until we implement our upcoming sync feature)</li>
               </ul>
             </section>
 
@@ -82,7 +83,7 @@ export default function PrivacyPage() {
               <h2 className="text-xl font-semibold mb-3">5. Information We May Collect</h2>
               <p className="mb-3">The only information we may collect is:</p>
               <ul className="list-disc pl-6 space-y-2">
-                <li>Email addresses that users voluntarily provide for updates (if you use our "Notify Me" feature)</li>
+                <li>Email addresses that users voluntarily provide for updates (if you use our &quot;Notify Me&quot; feature)</li>
                 <li>Anonymous usage statistics if you explicitly opt-in to help us improve the application</li>
                 <li>Information you provide when contacting us for support</li>
               </ul>
@@ -100,13 +101,13 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold mb-3">8. Children's Privacy</h2>
+              <h2 className="text-xl font-semibold mb-3">8. Children&apos;s Privacy</h2>
               <p className="mb-3">NotesFlow is not intended for children under the age of 13. We do not knowingly collect personal information from children under 13.</p>
             </section>
 
             <section>
               <h2 className="text-xl font-semibold mb-3">9. Changes to This Privacy Policy</h2>
-              <p className="mb-3">We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date.</p>
+              <p className="mb-3">We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the &quot;Last updated&quot; date.</p>
               <p>You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
             </section>
 
