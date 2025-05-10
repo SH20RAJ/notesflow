@@ -27,19 +27,8 @@ export default function LandingPage({ onGetStarted, darkMode }) {
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
 
-    // Add click handler to the install button
-    const installButton = document.getElementById('pwa-install-button');
-    if (installButton) {
-      installButton.addEventListener('click', handleInstallClick);
-    }
-
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-      // Clean up the click handler
-      const installButton = document.getElementById('pwa-install-button');
-      if (installButton) {
-        installButton.removeEventListener('click', handleInstallClick);
-      }
     };
   }, []);
 
@@ -278,6 +267,7 @@ export default function LandingPage({ onGetStarted, darkMode }) {
               {!isPWA && (
                 <button
                   id="pwa-install-button"
+                  onClick={handleInstallClick}
                   className="px-6 py-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-medium shadow-md transition-all duration-300 flex items-center gap-2"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -317,8 +307,8 @@ export default function LandingPage({ onGetStarted, darkMode }) {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <div>
-                      <p className="font-medium">You're offline</p>
-                      <p className="mt-1 text-amber-700 dark:text-amber-400">Don't worry! NotesFlow works offline. Your notes are safely stored on your device.</p>
+                      <p className="font-medium">You&apos;re offline</p>
+                      <p className="mt-1 text-amber-700 dark:text-amber-400">Don&apos;t worry! NotesFlow works offline. Your notes are safely stored on your device.</p>
                     </div>
                   </div>
                 </div>

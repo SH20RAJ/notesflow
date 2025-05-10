@@ -45,8 +45,8 @@ export default function OfflineStatus({ darkMode }) {
   return (
     <div className="fixed top-4 left-4 right-4 md:left-auto md:w-80 z-50">
       <div className={`rounded-xl shadow-lg p-4 ${
-        isOnline 
-          ? (darkMode ? 'bg-green-800/90 text-white' : 'bg-green-50 text-green-800') 
+        isOnline
+          ? (darkMode ? 'bg-green-800/90 text-white' : 'bg-green-50 text-green-800')
           : (darkMode ? 'bg-amber-800/90 text-white' : 'bg-amber-50 text-amber-800')
       } border ${
         isOnline
@@ -56,8 +56,8 @@ export default function OfflineStatus({ darkMode }) {
         <div className="flex items-start">
           <div className="flex-shrink-0 mr-3">
             <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-              isOnline 
-                ? (darkMode ? 'bg-green-700' : 'bg-green-100') 
+              isOnline
+                ? (darkMode ? 'bg-green-700' : 'bg-green-100')
                 : (darkMode ? 'bg-amber-700' : 'bg-amber-100')
             }`}>
               {isOnline ? (
@@ -74,9 +74,9 @@ export default function OfflineStatus({ darkMode }) {
           <div className="flex-1">
             <div className="flex justify-between items-start">
               <h3 className="font-bold text-sm">
-                {isOnline ? 'You\'re back online!' : 'You\'re offline'}
+                {isOnline ? 'You&apos;re back online!' : 'You&apos;re offline'}
               </h3>
-              <button 
+              <button
                 onClick={handleDismiss}
                 className="ml-3 -mt-1"
               >
@@ -86,8 +86,8 @@ export default function OfflineStatus({ darkMode }) {
               </button>
             </div>
             <p className="text-xs mt-1">
-              {isOnline 
-                ? 'All features are now available.' 
+              {isOnline
+                ? 'All features are now available.'
                 : 'NotesFlow works offline. Your notes are safely stored on your device.'}
             </p>
           </div>

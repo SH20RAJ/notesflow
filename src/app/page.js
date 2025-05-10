@@ -15,6 +15,15 @@ const LandingPage = dynamic(() => import('@/components/LandingPage'), {
   ssr: false,
 });
 
+// Import PWA components
+const PWAInstallPrompt = dynamic(() => import('@/components/PWAInstallPrompt'), {
+  ssr: false,
+});
+
+const OfflineStatus = dynamic(() => import('@/components/OfflineStatus'), {
+  ssr: false,
+});
+
 export default function Home() {
   // State for notes
   const [notes, setNotes] = useState([]);
@@ -25,6 +34,8 @@ export default function Home() {
   const [sortOption, setSortOption] = useState("lastEdited"); // Default sort by last edited
   const [zenMode, setZenMode] = useState(false); // State for zen/fullscreen mode
   const [showLanding, setShowLanding] = useState(true); // State to control landing page visibility
+  const [isPWA, setIsPWA] = useState(false); // State to track if app is installed as PWA
+  const [deferredPrompt, setDeferredPrompt] = useState(null); // Store the install prompt
 
   // Load notes from localStorage on initial render
   useEffect(() => {
@@ -296,6 +307,64 @@ export default function Home() {
     }
   }, []);
 
+  // Check if the app is running as a PWA and handle installation
+  useEffect(() => {
+    // Check if the app is already installed as a PWA
+    if (window.matchMedia('(display-mode: standalone)').matches ||
+        window.navigator.standalone === true) {
+      setIsPWA(true);
+    }
+
+    // Listen for the beforeinstallprompt event
+    const handleBeforeInstallPrompt = (e) => {
+      // Prevent Chrome 67 and earlier from automatically showing the prompt
+      e.preventDefault();
+      // Stash the event so it can be triggered later
+      setDeferredPrompt(e);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    // Handle app installed event
+    window.addEventListener('appinstalled', () => {
+      // Log install to analytics
+      console.log('PWA was installed');
+      setIsPWA(true);
+      setDeferredPrompt(null);
+    });
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    };
+  }, []);
+
+  // Function to handle the install button click
+  const handleInstallClick = () => {
+    if (!deferredPrompt) {
+      // The deferred prompt isn't available
+      // Show instructions for manual installation
+      alert('To install NotesFlow: \n\n' +
+            'On Chrome/Edge (Desktop): Click the install icon (+) in the address bar\n' +
+            'On Safari (iOS): Tap the share icon and then "Add to Home Screen"\n' +
+            'On Chrome (Android): Tap the menu button and then "Add to Home Screen"');
+      return;
+    }
+
+    // Show the install prompt
+    deferredPrompt.prompt();
+
+    // Wait for the user to respond to the prompt
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('User accepted the install prompt');
+      } else {
+        console.log('User dismissed the install prompt');
+      }
+      // Clear the saved prompt since it can't be used again
+      setDeferredPrompt(null);
+    });
+  };
+
   // Render landing page if showLanding is true
   if (showLanding) {
     return <LandingPage onGetStarted={handleGetStarted} darkMode={darkMode} />;
@@ -304,6 +373,12 @@ export default function Home() {
   // Render the main app
   return (
     <div className={`h-screen flex flex-col overflow-hidden ${darkMode ? 'dark bg-gradient-to-br from-gray-900 to-gray-800 text-white' : 'bg-gradient-to-br from-white to-gray-50 text-gray-800'} ${zenMode ? 'zen-mode' : ''}`}>
+      {/* PWA Install Prompt */}
+      <PWAInstallPrompt darkMode={darkMode} />
+
+      {/* Offline Status */}
+      <OfflineStatus darkMode={darkMode} />
+
       <div className="flex flex-col flex-1 overflow-hidden">
       {/* Header */}
       <header className={`p-3 md:p-4 flex justify-between items-center ${darkMode ? 'bg-gray-900/50 backdrop-blur-md' : 'bg-white/50 backdrop-blur-md'} shadow-sm`}>
@@ -491,7 +566,7 @@ export default function Home() {
               </button>
             </div>
 
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-2 mb-2">
               <div className="relative">
                 <input
                   type="file"
@@ -521,6 +596,27 @@ export default function Home() {
                 <span>Export</span>
               </button>
             </div>
+
+            {/* PWA Install Button - only show if not already installed */}
+            {!isPWA && deferredPrompt && (
+              <button
+                onClick={handleInstallClick}
+                className={`w-full py-1.5 px-2 rounded-lg transition-all duration-300 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-sm flex items-center justify-center gap-1 text-xs`}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                <span>Install App for Offline Use</span>
+              </button>
+            )}
+
+            {/* Offline Badge - show when app is installed as PWA */}
+            {isPWA && (
+              <div className={`w-full py-1.5 px-2 rounded-lg ${darkMode ? 'bg-gray-800 text-green-400' : 'bg-gray-100 text-green-600'} flex items-center justify-center gap-1 text-xs`}>
+                <span className="w-2 h-2 rounded-full bg-green-500"></span>
+                <span>Available Offline</span>
+              </div>
+            )}
           </div>
         </aside>
 
