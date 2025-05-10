@@ -377,11 +377,22 @@ export default function LandingPage({ onGetStarted, darkMode }) {
       {/* Footer */}
       <footer className={`py-8 px-6 ${darkMode ? 'bg-gray-900/70 text-gray-400' : 'bg-white/70 text-gray-400'} backdrop-blur-md shadow-inner`}>
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-sm">
-              <span className="text-white text-xs font-bold">N</span>
+          <div className="flex flex-col md:flex-row items-center gap-4">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-sm">
+                <span className="text-white text-xs font-bold">N</span>
+              </div>
+              <p className="font-medium">NotesFlow - Your notes are stored locally for complete privacy</p>
             </div>
-            <p className="font-medium">NotesFlow - Your notes are stored locally for complete privacy</p>
+            <a href="https://www.producthunt.com/posts/notesflow?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-notesflow" target="_blank" rel="noopener noreferrer">
+              <img
+                src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=963731&theme=light&t=1746896708761"
+                alt="NotesFlow - Privacy&#0045;focused&#0032;note&#0045;taking&#0032;app | Product Hunt"
+                style={{ width: '250px', height: '54px' }}
+                width="250"
+                height="54"
+              />
+            </a>
           </div>
           <div className="flex items-center gap-4">
             <Link href="/terms" className={`p-2 rounded-lg transition-all duration-300 ${darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}>
