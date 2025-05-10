@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width="512" height="512" rx="128" fill="url(#paint0_linear)" />
-  <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="240" font-weight="bold" fill="white">N</text>
+  <path d="M170 140V372H200.8V280.4H280.4C317.2 280.4 342 255.6 342 210.2C342 164.8 317.2 140 280.4 140H170ZM200.8 166.4H274.8C298.4 166.4 311.2 181.6 311.2 210.2C311.2 238.8 298.4 254 274.8 254H200.8V166.4Z" fill="white"/>
   <defs>
     <linearGradient id="paint0_linear" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
       <stop stop-color="#3B82F6" />
