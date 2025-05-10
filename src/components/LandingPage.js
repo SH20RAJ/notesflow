@@ -1,13 +1,82 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import PWAInstallPrompt from './PWAInstallPrompt';
+import OfflineStatus from './OfflineStatus';
 
 export default function LandingPage({ onGetStarted, darkMode }) {
   const [email, setEmail] = useState('');
+  const [isPWA, setIsPWA] = useState(false);
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
+
+  useEffect(() => {
+    // Check if the app is running as a PWA
+    if (window.matchMedia('(display-mode: standalone)').matches ||
+        window.navigator.standalone === true) {
+      setIsPWA(true);
+    }
+
+    // Listen for the beforeinstallprompt event
+    const handleBeforeInstallPrompt = (e) => {
+      // Prevent Chrome 67 and earlier from automatically showing the prompt
+      e.preventDefault();
+      // Stash the event so it can be triggered later
+      setDeferredPrompt(e);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    // Add click handler to the install button
+    const installButton = document.getElementById('pwa-install-button');
+    if (installButton) {
+      installButton.addEventListener('click', handleInstallClick);
+    }
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      // Clean up the click handler
+      const installButton = document.getElementById('pwa-install-button');
+      if (installButton) {
+        installButton.removeEventListener('click', handleInstallClick);
+      }
+    };
+  }, []);
+
+  // Function to handle the install button click
+  const handleInstallClick = () => {
+    if (!deferredPrompt) {
+      // The deferred prompt isn't available
+      // Show instructions for manual installation
+      alert('To install NotesFlow: \n\n' +
+            'On Chrome/Edge (Desktop): Click the install icon (+) in the address bar\n' +
+            'On Safari (iOS): Tap the share icon and then "Add to Home Screen"\n' +
+            'On Chrome (Android): Tap the menu button and then "Add to Home Screen"');
+      return;
+    }
+
+    // Show the install prompt
+    deferredPrompt.prompt();
+
+    // Wait for the user to respond to the prompt
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('User accepted the install prompt');
+      } else {
+        console.log('User dismissed the install prompt');
+      }
+      // Clear the saved prompt since it can't be used again
+      setDeferredPrompt(null);
+    });
+  };
 
   return (
     <div className={`min-h-screen flex flex-col ${darkMode ? 'dark bg-gradient-to-br from-gray-900 to-gray-800 text-white' : 'bg-gradient-to-br from-white to-gray-50 text-gray-400'}`}>
+      {/* PWA Install Prompt */}
+      <PWAInstallPrompt darkMode={darkMode} />
+
+      {/* Offline Status */}
+      <OfflineStatus darkMode={darkMode} />
       {/* Header */}
       <header className={`p-4 md:p-6 flex justify-between items-center ${darkMode ? 'bg-gray-900/50 backdrop-blur-md' : 'bg-white/50 backdrop-blur-md'} shadow-sm`}>
         <div className="flex items-center gap-3">
@@ -142,6 +211,118 @@ export default function LandingPage({ onGetStarted, darkMode }) {
               <p className={`${darkMode ? 'text-gray-400' : 'text-gray-400'}`}>
                 Your notes are stored locally on your device. We don&apos;t track you or collect your data. Your thoughts remain private.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Offline & PWA Section */}
+      <section className={`py-16 px-6 md:px-12 ${darkMode ? 'bg-gray-900/30' : 'bg-white/30'} backdrop-blur-sm`}>
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row gap-8 items-center">
+            <div className="md:w-1/2">
+              <div className="inline-block px-4 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300 mb-4">
+                Available Now
+              </div>
+              <h2 className="text-3xl font-bold mb-6">
+                Works Offline, Install as an App
+              </h2>
+              <p className="text-lg mb-6 text-gray-400 dark:text-gray-500">
+                NotesFlow is a Progressive Web App (PWA) that works offline and can be installed on your device for quick access.
+              </p>
+
+              <div className="space-y-4 mb-6">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-full bg-green-100 dark:bg-green-900/50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg">Offline Access</h3>
+                    <p className="text-gray-400 dark:text-gray-500">
+                      Create and edit notes even without an internet connection. Your changes are saved locally.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-full bg-green-100 dark:bg-green-900/50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg">Install on Any Device</h3>
+                    <p className="text-gray-400 dark:text-gray-500">
+                      Add NotesFlow to your home screen on mobile or desktop for a native app-like experience.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-full bg-green-100 dark:bg-green-900/50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg">Fast & Responsive</h3>
+                    <p className="text-gray-400 dark:text-gray-500">
+                      Enjoy a smooth, fast experience with quick loading times, even on slower connections.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {!isPWA && (
+                <button
+                  id="pwa-install-button"
+                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-medium shadow-md transition-all duration-300 flex items-center gap-2"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                  Install NotesFlow
+                </button>
+              )}
+            </div>
+
+            <div className="md:w-1/2">
+              <div className={`rounded-2xl overflow-hidden shadow-xl ${darkMode ? 'bg-gray-800' : 'bg-white'} border ${darkMode ? 'border-gray-700' : 'border-gray-200'}`}>
+                <div className={`p-4 ${darkMode ? 'bg-gray-800' : 'bg-gray-50'} border-b ${darkMode ? 'border-gray-700' : 'border-gray-200'} flex items-center justify-between`}>
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
+                      <span className="text-white text-sm font-bold">N</span>
+                    </div>
+                    <span className="font-medium">NotesFlow</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className={`px-3 py-1 rounded-full text-xs ${darkMode ? 'bg-green-900/50 text-green-300' : 'bg-green-100 text-green-800'} flex items-center gap-1`}>
+                      <span className="w-2 h-2 rounded-full bg-green-500"></span>
+                      <span>Available Offline</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <div className="space-y-3">
+                    <div className={`h-6 w-3/4 rounded ${darkMode ? 'bg-gray-700' : 'bg-gray-100'}`}></div>
+                    <div className={`h-4 w-full rounded ${darkMode ? 'bg-gray-700' : 'bg-gray-100'}`}></div>
+                    <div className={`h-4 w-5/6 rounded ${darkMode ? 'bg-gray-700' : 'bg-gray-100'}`}></div>
+                    <div className={`h-4 w-full rounded ${darkMode ? 'bg-gray-700' : 'bg-gray-100'}`}></div>
+                  </div>
+
+                  <div className="mt-8 p-4 rounded-lg bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-300 text-sm flex items-start gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <div>
+                      <p className="font-medium">You're offline</p>
+                      <p className="mt-1 text-amber-700 dark:text-amber-400">Don't worry! NotesFlow works offline. Your notes are safely stored on your device.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
