@@ -16,6 +16,21 @@ export const metadata = {
   description: "A free, privacy-focused note-taking application that lets you create, edit, and manage your notes with ease. All notes are stored locally for complete privacy.",
   manifest: "/manifest.json",
   themeColor: "#4f46e5",
+  openGraph: {
+    title: "NotesFlow - Privacy-Focused Note-Taking App",
+    description: "A free, privacy-focused note-taking application that lets you create, edit, and manage your notes with ease. All notes are stored locally for complete privacy.",
+    url: "https://notesflow.pages.dev",
+    siteName: "NotesFlow",
+    images: [
+      {
+        url: "/apple-touch-icon.png",
+        width: 512,
+        height: 512,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
