@@ -76,6 +76,7 @@ textarea, input {
   bottom: 0 !important;
   z-index: 9999 !important;
   background-color: var(--background);
+  padding: 1rem !important;
 }
 
 .zen-mode-content .ProseMirror {
@@ -83,6 +84,12 @@ textarea, input {
   margin: 0 auto;
   padding: 2rem;
   height: 100% !important;
+}
+
+.zen-mode-content .tiptap-menubar {
+  max-width: 800px;
+  margin: 0 auto 0.5rem auto;
+  border-radius: 0.5rem;
 }
 
 /* TipTap Editor Styles */

@@ -118,9 +118,9 @@ export default function ContactPage() {
                     <div className="flex gap-2 mt-1">
                       <a href="https://www.linkedin.com/in/sh20raj/" target="_blank" rel="noopener noreferrer" className="text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400">LinkedIn</a>
                       <span>•</span>
-                      <a href="#" className="text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400">Twitter</a>
+                      <a href="https://x.com/sh20raj" className="text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400">Twitter</a>
                       <span>•</span>
-                      <a href="#" className="text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400">GitHub</a>
+                      <a href="https://github.com/sh20raj" className="text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400">GitHub</a>
                     </div>
                   </div>
                 </div>

@@ -303,7 +303,7 @@ export default function Home() {
 
   // Render the main app
   return (
-    <div className={`h-screen flex flex-col overflow-hidden ${darkMode ? 'dark bg-gradient-to-br from-gray-900 to-gray-800 text-white' : 'bg-gradient-to-br from-white to-gray-50 text-gray-800'}`}>
+    <div className={`h-screen flex flex-col overflow-hidden ${darkMode ? 'dark bg-gradient-to-br from-gray-900 to-gray-800 text-white' : 'bg-gradient-to-br from-white to-gray-50 text-gray-800'} ${zenMode ? 'zen-mode' : ''}`}>
       <div className="flex flex-col flex-1 overflow-hidden">
       {/* Header */}
       <header className={`p-3 md:p-4 flex justify-between items-center ${darkMode ? 'bg-gray-900/50 backdrop-blur-md' : 'bg-white/50 backdrop-blur-md'} shadow-sm`}>
@@ -574,7 +574,7 @@ export default function Home() {
                   </button>
                 </div>
               </div>
-              <div className="flex-1 p-1 md:p-3 overflow-hidden">
+              <div className={`flex-1 p-1 md:p-3 overflow-hidden ${zenMode ? 'zen-mode-content' : ''}`}>
                 <div className={`h-full rounded-xl shadow-lg ${darkMode ? 'bg-gray-900/50' : 'bg-white/50'} backdrop-blur-sm overflow-auto`}>
                   <RichTextEditor
                     content={activeNoteContent}
@@ -583,6 +583,17 @@ export default function Home() {
                     darkMode={darkMode}
                   />
                 </div>
+                {zenMode && (
+                  <button
+                    onClick={() => setZenMode(false)}
+                    className={`fixed top-4 right-4 p-2 rounded-lg transition-all duration-300 ${darkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-gray-100 hover:bg-gray-200'} shadow-md flex items-center justify-center z-50`}
+                    title="Exit Zen Mode"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 9V4.5M9 9H4.5M9 9L3.75 3.75M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 15v4.5m0-4.5l5.25 5.25" />
+                    </svg>
+                  </button>
+                )}
               </div>
             </>
           ) : (

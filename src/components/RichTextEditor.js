@@ -50,7 +50,7 @@ const MenuBar = ({ editor, darkMode }) => {
   }
 
   return (
-    <div className={`flex flex-wrap gap-1 p-2 ${darkMode ? 'bg-gray-900/70' : 'bg-white/70'} backdrop-blur-sm shadow-sm border-b ${darkMode ? 'border-gray-800' : 'border-gray-200'}`}>
+    <div className={`flex flex-wrap gap-1 p-2 ${darkMode ? 'bg-gray-900/70' : 'bg-white/70'} backdrop-blur-sm shadow-sm border-b ${darkMode ? 'border-gray-800' : 'border-gray-200'} tiptap-menubar`}>
       <div className="flex items-center gap-1 mr-1">
         <div className={`h-6 px-2 rounded-md ${darkMode ? 'bg-indigo-900/30 text-indigo-300' : 'bg-indigo-50 text-indigo-700'} text-xs font-medium flex items-center`}>
           Format
