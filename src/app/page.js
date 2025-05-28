@@ -31,7 +31,7 @@ export default function Home() {
   const [activeNoteContent, setActiveNoteContent] = useState("");
   const [activeNoteTitle, setActiveNoteTitle] = useState("");
   const [darkMode, setDarkMode] = useState(false);
-  const [sortOption, setSortOption] = useState("lastEdited"); // Default sort by last edited
+  const [sortOption, setSortOption] = useState("created"); // Default sort by last edited
   const [zenMode, setZenMode] = useState(false); // State for zen/fullscreen mode
   const [showLanding, setShowLanding] = useState(true); // State to control landing page visibility
   const [isPWA, setIsPWA] = useState(false); // State to track if app is installed as PWA
