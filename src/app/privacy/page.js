@@ -114,7 +114,7 @@ export default function PrivacyPage() {
             <section>
               <h2 className="text-xl font-semibold mb-3">10. Contact Us</h2>
               <p className="mb-3">If you have any questions about this Privacy Policy, please contact us at:</p>
-              <p>privacy@notesflow.com</p>
+              <p>sh20raj@gmail.com</p>
             </section>
           </div>
 
